@@ -1,0 +1,7 @@
+---
+  block: # its for debian
+      - name: Install Apache
+        apt: apache2
+        state: latest
+      - name: copy config files
+        copy:
