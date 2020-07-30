@@ -1,0 +1,37 @@
+---
+- name: Install Apache
+  apt:
+    name: apache2
+    state: latest
+- name: Generate apache conf
+  template:
+    src: apache2.j2
+    dest: "{{ ServerRoot }}/apache2.conf"
+    mode: 0444
+- name: Generate prefork conf
+  template:
+    src: mpm_prefork.j2
+    dest: "{{ apache_mod_path }}/mpm_prefork.conf"
+    mode: 0444
+- name: disable mpm_worker
+  apache2_module:
+    name: mpm_worker
+    state: absent
+    ignore_configcheck: True
+  notify: Restart apache
+- name: disable mpm_event
+  apache2_module:
+    name: mpm_event
+    state: absent
+    ignore_configcheck: True
+  notify: Restart apache
+- name: enable mpm_prefork
+  apache2_module:
+    name: mpm_prefork
+    state: present
+    ignore_configcheck: True
+  notify: Restart apache
+- name: Restart apache
+  service:
+    name: apache2
+    state: restarted

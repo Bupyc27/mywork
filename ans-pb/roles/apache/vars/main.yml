@@ -1,0 +1,14 @@
+---
+# vars file for apache
+#mpm prefork
+apache_mod_path: /etc/apache2/mods-available/
+MaxSpareServers: 6
+MinSpareServers: 4
+
+#Apache2 conf
+ServerRoot: /etc/apache2
+AllowOverride: all
+KeepAliveTimeout: 5
+MaxKeepAliveRequests: 100
+KeepAlive: On
+Timeout: 300

@@ -1,0 +1,7 @@
+---
+# tasks file for newusr
+ - name: Create new usr
+   user:
+     name: lskywalker
+     password: password
+     create_home: yes
